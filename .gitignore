@@ -20,3 +20,11 @@ tmp/*
 # Sistema operativo
 .DS_Store
 Thumbs.db
+
+credentials.json
+google-credentials.json
+service-account.json
+*.credentials.json
+node_modules/
+tmp/*
+!tmp/.gitkeep
