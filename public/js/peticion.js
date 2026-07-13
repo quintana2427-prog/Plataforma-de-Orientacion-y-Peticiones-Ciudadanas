@@ -98,6 +98,30 @@ function mostrarVistaPrevia() {
   document.getElementById("vistaPrevia").textContent = borrador;
 }
 
+function mensajeAyudaPorTipo(tipo) {
+  const mensajes = {
+    derecho_peticion:
+      "Use esta opción cuando necesita presentar una solicitud respetuosa ante una entidad o autoridad.",
+    informacion_publica:
+      "Use esta opción cuando quiere acceder a información pública o documentos de una entidad.",
+    copias:
+      "Use esta opción cuando necesita copia de documentos, respuestas, actos o expedientes.",
+    estado_tramite:
+      "Use esta opción cuando ya presentó una solicitud o trámite y necesita saber en qué va.",
+    orientacion_ruta:
+      "Use esta opción cuando no sabe qué entidad puede orientarle o recibir su solicitud.",
+    querella_policiva:
+      "Use esta opción solo como orientación cuando el asunto se relaciona con convivencia o una posible ruta ante autoridad de policía. No se genera una querella real en clase."
+  };
+
+  return mensajes[tipo] || "Seleccione un tipo de solicitud para ver una orientación inicial.";
+}
+
+function actualizarAyudaTipoPeticion() {
+  const tipo = document.getElementById("tipoPeticion").value;
+  const ayuda = document.getElementById("ayudaTipoPeticion");
+  ayuda.textContent = mensajeAyudaPorTipo(tipo);
+}
 async function copiarBorrador() {
   const texto = document.getElementById("vistaPrevia").textContent;
 
@@ -158,6 +182,10 @@ async function enviarAlBackend(event) {
 document.addEventListener("DOMContentLoaded", () => {
   const fecha = document.getElementById("fecha");
   fecha.value = new Date().toISOString().split("T")[0];
+
+  document
+  .getElementById("tipoPeticion")
+  .addEventListener("change", actualizarAyudaTipoPeticion);
 
   document.getElementById("btnVistaPrevia").addEventListener("click", mostrarVistaPrevia);
   document.getElementById("btnCopiar").addEventListener("click", copiarBorrador);
